@@ -70,7 +70,8 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
                 ring-0 
                 outline-none 
                 text-[20px] 
-                placeholder-neutral-500 
+                dark:placeholder-neutral-500
+                placeholder-neutral-200 
                 dark:text-white
                 text-black
               "
