@@ -71,7 +71,6 @@ const LoginModal = () => {
             hover:underline
           "
         >
-          {" "}
           Create an account
         </span>
       </p>
