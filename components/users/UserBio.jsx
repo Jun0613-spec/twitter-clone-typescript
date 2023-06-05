@@ -6,20 +6,33 @@ import useUser from "@/hooks/useUser";
 import useFollow from "@/hooks/useFollow";
 import useEditModal from "@/hooks/useEditModal";
 import Button from "../Button";
+
 const UserBio = ({ userId }) => {
-    const { data: currentUser } = useCurrentUser();
-    const { data: fetchedUser } = useUser(userId);
-    const editModal = useEditModal();
-    const { isFollowing, toggleFollow } = useFollow(userId);
-    const createdAt = useMemo(() => {
-        if (!fetchedUser?.createdAt) {
-            return null;
-        }
-        return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
-    }, [fetchedUser?.createdAt]);
-    return (<div className="border-b-[1px] dark:border-neutral-800 border-neutral-200 pb-4">
+  const { data: currentUser } = useCurrentUser();
+  const { data: fetchedUser } = useUser(userId);
+  const editModal = useEditModal();
+  const { isFollowing, toggleFollow } = useFollow(userId);
+
+  const createdAt = useMemo(() => {
+    if (!fetchedUser?.createdAt) {
+      return null;
+    }
+    return format(new Date(fetchedUser.createdAt), "MMMM yyyy");
+  }, [fetchedUser?.createdAt]);
+
+  return (
+    <div className="border-b-[1px] dark:border-neutral-800 border-neutral-200 pb-4">
       <div className="flex justify-end p-2">
-        {currentUser?.id === userId ? (<Button secondary label="Edit" onClick={editModal.onOpen}/>) : (<Button onClick={toggleFollow} label={isFollowing ? "Unfollow" : "Follow"} secondary={!isFollowing} outline={isFollowing}/>)}
+        {currentUser?.id === userId ? (
+          <Button secondary label="Edit" onClick={editModal.onOpen} />
+        ) : (
+          <Button
+            onClick={toggleFollow}
+            label={isFollowing ? "Unfollow" : "Follow"}
+            secondary={!isFollowing}
+            outline={isFollowing}
+          />
+        )}
       </div>
       <div className="mt-8 px-4">
         <div className="flex flex-col">
@@ -32,7 +45,8 @@ const UserBio = ({ userId }) => {
         </div>
         <div className="flex flex-col mt-4">
           <p className="dark:text-white text-black">{fetchedUser?.bio}</p>
-          <div className="
+          <div
+            className="
               flex 
               flex-row 
               items-center 
@@ -40,8 +54,9 @@ const UserBio = ({ userId }) => {
               mt-4 
               dark:text-neutral-500
               text-neutral-600
-          ">
-            <BiCalendar size={24}/>
+          "
+          >
+            <BiCalendar size={24} />
             <p>Joined {createdAt}</p>
           </div>
         </div>
@@ -60,6 +75,8 @@ const UserBio = ({ userId }) => {
           </div>
         </div>
       </div>
-    </div>);
+    </div>
+  );
 };
+
 export default UserBio;

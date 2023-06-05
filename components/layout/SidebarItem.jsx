@@ -3,23 +3,25 @@ import { useRouter } from "next/router";
 import useLoginModal from "@/hooks/useLoginModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { BsDot } from "react-icons/bs";
-const SidebarItem = ({ label, icon: Icon, href, auth, onClick, alert, }) => {
-    const router = useRouter();
-    const loginModal = useLoginModal();
-    const { data: currentUser } = useCurrentUser();
-    const handleClick = useCallback(() => {
-        if (onClick) {
-            return onClick();
-        }
-        if (auth && !currentUser) {
-            loginModal.onOpen();
-        }
-        else if (href) {
-            router.push(href);
-        }
-    }, [router, href, auth, loginModal, onClick, currentUser]);
-    return (<div onClick={handleClick} className="flex flex-row items-center">
-      <div className="
+
+const SidebarItem = ({ label, icon: Icon, href, auth, onClick, alert }) => {
+  const router = useRouter();
+  const loginModal = useLoginModal();
+  const { data: currentUser } = useCurrentUser();
+  const handleClick = useCallback(() => {
+    if (onClick) {
+      return onClick();
+    }
+    if (auth && !currentUser) {
+      loginModal.onOpen();
+    } else if (href) {
+      router.push(href);
+    }
+  }, [router, href, auth, loginModal, onClick, currentUser]);
+  return (
+    <div onClick={handleClick} className="flex flex-row items-center">
+      <div
+        className="
         relative
         rounded-full 
         h-14
@@ -32,11 +34,15 @@ const SidebarItem = ({ label, icon: Icon, href, auth, onClick, alert, }) => {
         hover:bg-opacity-10 
         cursor-pointer 
         lg:hidden
-      ">
-        <Icon size={28} className="dark:text-white text-black"/>
-        {alert ? (<BsDot className="text-sky-500 absolute -top-4 left-0" size={70}/>) : null}
+      "
+      >
+        <Icon size={28} className="dark:text-white text-black" />
+        {alert ? (
+          <BsDot className="text-sky-500 absolute -top-4 left-0" size={70} />
+        ) : null}
       </div>
-      <div className="
+      <div
+        className="
         relative
         hidden 
         lg:flex 
@@ -48,13 +54,18 @@ const SidebarItem = ({ label, icon: Icon, href, auth, onClick, alert, }) => {
         hover:bg-opacity-10 
         cursor-pointer
         items-center
-      ">
-        <Icon size={24} className="dark:text-white text-black"/>
+      "
+      >
+        <Icon size={24} className="dark:text-white text-black" />
         <p className="hidden lg:block dark:text-white text-black text-xl">
           {label}
         </p>
-        {alert ? (<BsDot className="text-sky-500 absolute -top-4 left-0" size={70}/>) : null}
+        {alert ? (
+          <BsDot className="text-sky-500 absolute -top-4 left-0" size={70} />
+        ) : null}
       </div>
-    </div>);
+    </div>
+  );
 };
+
 export default SidebarItem;

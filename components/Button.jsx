@@ -1,5 +1,17 @@
-const Button = ({ label, secondary, fullWidth, onClick, large, disabled, outline, }) => {
-    return (<button disabled={disabled} onClick={onClick} className={`
+const Button = ({
+  label,
+  secondary,
+  fullWidth,
+  onClick,
+  large,
+  disabled,
+  outline,
+}) => {
+  return (
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`
         disabled:opacity-70
         disabled:cursor-not-allowed
         rounded-full
@@ -17,8 +29,11 @@ const Button = ({ label, secondary, fullWidth, onClick, large, disabled, outline
         ${outline ? "bg-transparent" : ""}
         ${outline ? "border-white" : ""}
         ${outline ? "text-white" : ""}
-      `}>
+      `}
+    >
       {label}
-    </button>);
+    </button>
+  );
 };
+
 export default Button;

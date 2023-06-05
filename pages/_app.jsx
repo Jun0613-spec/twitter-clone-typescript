@@ -6,8 +6,10 @@ import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
 import "@/styles/globals.css";
 import EditModal from "@/components/modals/EditModal";
+
 export default function App({ Component, pageProps }) {
-    return (<ThemeProvider attribute="class">
+  return (
+    <ThemeProvider attribute="class">
       <SessionProvider session={pageProps.session}>
         <Toaster />
         <RegisterModal />
@@ -15,8 +17,9 @@ export default function App({ Component, pageProps }) {
         <EditModal />
 
         <Layout>
-          <Component {...pageProps}/>
+          <Component {...pageProps} />
         </Layout>
       </SessionProvider>
-    </ThemeProvider>);
+    </ThemeProvider>
+  );
 }
