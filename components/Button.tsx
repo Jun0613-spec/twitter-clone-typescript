@@ -1,21 +1,27 @@
+import { ReactNode } from "react";
+
 interface ButtonProps {
-  label: string;
+  label: ReactNode;
   secondary?: boolean;
   fullWidth?: boolean;
   large?: boolean;
   onClick: () => void;
   disabled?: boolean;
   outline?: boolean;
+  transform?: boolean;
+  noBorder?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
   label,
   secondary,
   fullWidth,
-  onClick,
   large,
+  onClick,
   disabled,
   outline,
+  transform,
+  noBorder,
 }) => {
   return (
     <button
@@ -28,7 +34,8 @@ const Button: React.FC<ButtonProps> = ({
         font-semibold
         hover:opacity-80
         transition
-        border-2
+        ${noBorder ? "" : "border-2"}
+        ${transform ? "" : "transition-transform duration-300 ease-in-out"}
         ${fullWidth ? "w-full" : "w-fit"}
         ${secondary ? "dark:bg-white bg-sky-500" : "bg-sky-500"}
         ${secondary ? "dark:text-black text-white" : "text-white"}

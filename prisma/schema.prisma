@@ -29,6 +29,10 @@ model User {
   posts         Post[]
   comments      Comment[]
   notifications Notification[]
+  actedNotifications Notification[] @relation("Actor")
+
+  sentPrivateMessages     PrivateMessage[] @relation("PrivateMessageSender")
+  receivedPrivateMessages PrivateMessage[] @relation("PrivateMessageRecipient")
 }
 
 model Post {
@@ -43,6 +47,7 @@ model Post {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   comments          Comment[]
+  notifications Notification[]
 }
 
 model Comment {
@@ -61,7 +66,24 @@ model Notification {
   id                 String @id @default(auto()) @map("_id") @db.ObjectId
   body               String
   userId             String @db.ObjectId
+  actorId            String? @db.ObjectId
+  type               String
+  postId             String? @db.ObjectId
   createdAt          DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actor User? @relation("Actor", fields: [actorId], references: [id], onDelete: Cascade)
+  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model PrivateMessage {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  content            String
+  createdAt          DateTime @default(now())
+  senderId           String @db.ObjectId
+  recipientId        String @db.ObjectId
+  
+
+  sender User @relation("PrivateMessageSender", fields: [senderId], references: [id])
+  recipient User @relation("PrivateMessageRecipient", fields: [recipientId], references: [id])
 }
